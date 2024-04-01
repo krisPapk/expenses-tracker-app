@@ -1,9 +1,23 @@
-// Summary.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import styles from './styles';
-const Summary = ({ route }) => {
-  const { transactions } = route.params || { transactions: [] };
+import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { db } from '../../firebaseConfig';
+
+const Summary = () => {
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'expenses'), (snapshot) => {
+      const data = [];
+      snapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      setTransactions(data);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Calculate summary information
   const totalTransactions = transactions.length;
