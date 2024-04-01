@@ -8,8 +8,8 @@ export default function TransactionDetails({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
-        <Text style={styles.amount}>{transaction.amount}</Text>
-        <Text style={styles.description}>{transaction.description}</Text>
+        <Text style={styles.amount}>{transaction.amount}$</Text>
+        <Text style={styles.description}>{transaction.place}</Text>
         <Text style={styles.address}>{transaction.address}</Text>
         <Text style={styles.date}>Transaction Date: {transaction.date}</Text>
       </View>
